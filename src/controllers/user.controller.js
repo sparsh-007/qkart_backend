@@ -39,6 +39,13 @@ const { userService } = require("../services");
  *
  */
 const getUser = catchAsync(async (req, res) => {
+  let data = await userService.getUserById(req.params.userId)
+  console.log("Getuser",data)
+  if(!data){
+    throw new ApiError(httpStatus.NOT_FOUND,"User Not Found")
+  }
+  res.send({_id:data._id,name:data.name,email:data.email,walletMoney:parseInt(data.walletMoney)})
+
 });
 
 
